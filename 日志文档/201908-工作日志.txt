@@ -1,0 +1,189 @@
+=========8月6日===========
+
+一、阅读：KBSS_业务程序开发指引_1.8.doc
+	1、业务程序开发框架
+	2、业务系统通用模块
+	3、其他章节
+二、阅读：金证C及C++编程规范.doc
+	1、编程的基本原则、排版、注释、命名规范及次序
+	2、程序的可读性、可测性、程序效率、RAII和质量保证
+	3、变量、结构、函数、过程、类、智能指针
+
+=========8月7日===========
+
+一、构建后台数据库环境
+	1. 建立资金管理库kbssfms和历史库kbssbase
+	2. 建立数据库用户kbssfms/kbssfms并赋予“db_owner”权限
+	3. 导入初始数据
+二、配置KCXP
+	1. 安装KCXP
+	2. 配置kcxpmanger.ini
+	3. 配置kcxp.ini
+	4. 配置kcmpmma.ini
+	5. 配置kxbpcli.ini
+三、配置KCBP
+	1. 配置环境变量IMDBSCOPE=LOCAL
+	2. 配置数据源kbssfms、kbssbase
+	3. 配置XA：kbssfms、kbssbase等
+	4. 配置Listener：reqfms2、ansfms2等
+	5. 配置KCBP所连接的KCXP
+四、配置web前端
+	1. 安装JDK并设置环境变量
+	2. 配置webapp
+		修改WEB-INF\conf\ds.properties文件中数据库地址、端口和数据库名称、用户名、密码
+		注释WEB-INF\conf\frame-spring.xml多余的property标签
+		修改WEB-INF\conf\KesbPool.properties文件中KESB的地址和队列
+		修改WEB-INF\conf\clusters.properties文件的IP和端口为Tomcat地址和端口
+	3. 配置tomcat	
+		修改server.xml文件的Context标签docBase属性为webapp地址
+		修改conf\server.xml文件的Connector标签port属性为8080
+
+=========8月8日===========
+
+一、编写：3.5前端新增设置菜单脚本
+	1. 在kbssfms库中创建菜单对应的表CUST_INFO
+	2. 在SYS_FUNC表中新增功能，FUNC_CODE=331000010
+	3. 在SYS_MENU表中新增菜单，MENU_CODE=331000010
+	4. 在POST_MENU表中新增菜单的授权
+
+二、配置：3.5前端新增设置菜单xml文件：GenP_331000010_用户信息设置
+	1. 功能定义，
+		<function code="331000010" name="用户信息设置" version="2"/>
+	2. 数据表定义
+		<table code="CUST_INFO" name="用户信息" remark="">    </table>
+	3. 方法定义
+		<method type="insert" biz_code="20190801" />
+		<method type="update" biz_code="20190803">  </method>
+		<method type="delete" biz_code="20190802" />	
+		<method type="select" auto_query="1">    </method>
+=========8月9日===========
+一、编写: 3.5前端新增查询菜单脚本
+	1. 在SYS_FUNC表中新增功能，FUNC_CODE=351500119
+	2. 在SYS_MENU表中新增菜单，MENU_CODE=351500119
+	3. 在POST_MENU表中新增菜单的授权
+	
+二、配置：3.5前端新增设置菜单xml文件：GenQ_351500119_用户信息查询
+	1. 功能定义
+		<function code="351500119" name="用户信息查询" version="10" type="query" sumquery="1" subquery="0"/>
+	2. 打印定义
+		<print template_file=""> </print>
+	3. 输入定义
+		<input>    </input>
+	4. 输出定义
+		<output fix_col_num="3">    </output>
+	5. 方法定义
+		<data method="sql">    </data>
+
+-----------------------------------------------------------------------------------第 33 周-------------------------------------------------------
+
+=========8月12日===========
+1. 一柜通前端通用查询XML配置巩固
+	1.1 学习《genQ_202000020_客户资料列表查询.xml》
+	1.2 模仿配置《GenQ_153000010_操作员资料列表查询.xml》
+2. 一柜通前端通用设置XML配置巩固
+	2.1 学习《GenP_104000013_银证业务交易设置.xml》
+	2.2 模仿配置《GenP_400505078_银行编码对照表设置.xml》
+
+=========8月13日===========
+1. 学习如何使用sqlserver的工具Profiler进行后台的跟踪
+	SQL Server --> 工具 --> SQL Server Profiler --> 选用标准属性 --> 启动跟踪
+2. 学习如何使用clienttest模拟前端进行lbm的单元测试
+	2.1 学习如何组建前端请求报文
+		LBM号
+		F_开头的固定参数,输入参数		
+	2.2 学习使用clienttest进行单元测试
+		LBM --> 粘贴报文
+	2.3 查看和记录预期与实际结果
+		每个LBM的单元测试应该是多场景的预期，测试后得出实际结果值
+ 
+=========8月14日===========
+1. 练习使用clienttest对L0063001进行多场景测试
+	必输参数的所有组合
+	必须参数+一种选输参数组合
+2. 跟踪并学习L0063001测试过程中执行到的SQL语句
+	详见 工作笔记/《190813测试LBM-0063001练习.txt》	
+3. VS2010编译环境变量配置(用户)
+	KBSS_DLL_PATH  		D:\kcbp\bin\
+	KBSS_RELEASE_DLL_PATH  	D:\kcbp\bin\
+	KBSS_10_LIB_PATH		D:\FMS_v2.2.4.0\kams\bizlib_10\Debug_lib\
+	KBSS_RELEASE_10_LIB_PATH 	D:\FMS_v2.2.4.0\kams\bizlib_10\Release_lib\
+	
+=========8月15日===========
+1. 学习编译KBSS项目
+	配置环境变量 -->  清理解决方案  --> 重新生成
+2. 调试L0063001代码
+	2.1 启动XP、BP，BP设置为process模式，设置MAX AS为3
+	2.2 添加断点到代码合适位置
+	2.3  附加进程到KCBP：VS2010 -->  调试  -->  附加到进程  -->选择三个kcbpas.exe进程
+	2.4  启动LBM调试，输入报文，模拟前端调用L0063001
+	
+=========8月16日===========
+1. 生成DAO层代码
+	1.1 创建CUST_INFO表的PD文件
+		安装Power Desiger 12
+		创建CUST_INFO表，并修改General页的name、code、comment以及Columns列的字段属性
+		添加CUST_INFO表的索引，设置索引的属性页Columns为CUST_CODE
+	1.2 生成DAO层代码
+		拷贝DAO_CREATOR.bat和DAO_CREATOR_X64.exe到pd目录
+		修改DAO_CREATOR.bat文件，并执行后生成daocustinfo.h和daocustinfo.cpp
+	1.3 使用DAO层代码
+		移动D:\FMS_v2.2.4.0\kams\pd下的文件
+			dao_xxx.h    -->    D:\FMS_v2.2.4.0\kams\src\base\include_odbc
+			dao_xxx.cpp    -->    D:\FMS_v2.2.4.0\kams\src\base\dao_cpp	
+		右击KBSS_BASE_DAO项目添加文件
+			dao_xxx.h        -->    dao_cpp
+			dao_xxx.cpp     -->    include_odbc		
+2. 编写cls层代码：实现对custinfo表的增删改查接口实现
+	2.1 编写custinfo.h和custfo.cpp文件，并完成编译
+-------------------------------------------------------------------------------------------------------------------------------------------
+=========8月19日===========
+1. 编写新增客户信息的LBM(L1190001)，并完成编译。
+2. 配置《D:\kcbp\bin\KCBPSPD.XML》文件，新增LBM并修改name、path、module三个属性。
+3. 进行L119001的单元测试，并测试通过。
+
+=========8月20日===========
+1. 编写删除客户信息的LBM(L1190002)和修改客户信息的LBM(L1190003)，并完成编译。
+2. 进行L1190002和L1190003的单元测试，并测试通过。
+
+=========8月21日===========
+1. 编写按客户代码查询客户信息的LBM(L1190004)，并完成编译
+2. 进行L119004的单元测试，并测试通过。
+3. 配置《D:\FMS_v2.2.4.0\kams\pd\pdm_notes_xml\kbss_table\dao_CUST_INFO.xml》，
+	修改《DAO_CREATOR.bat》文件 -ExtXML: dao_CUST_INFO.xml， 并生成带ST_CUST_INFO_EX2的dao层代码
+4. 编写按客户代码查询客户姓名和电话的LBM(1190005)，并完成编译
+5. 进行L119005的单元测试，并测试通过。
+
+=========8月22日===========
+1. 编写按客户电话查询客户代码和姓名的LBM(1190006)，并成功编译和测试通过
+2. 编写按客户代码更新客户姓名和电话的LBM(1190007)，并成功编译和测试通过
+
+=========8月23日===========
+1. 学习客户开户接口业务，进行L1190528接口代码的调式跟踪
+2. 整理开户过程中执行的SQL语句与操作的表(USER、CUSTOMER、USER_BASIC_INFO、USER_BSB_INFO)
+
+=========8月26日=============
+1. 学习L1190528接口中普通客户开户的代码，并进行调试和数据库跟踪
+2. 在普通客户开户的接口L1190528中新增OP_CUST_FLAG入参，在开户时进行判断是否开通CUST_INFO表
+
+=========8月27日=============
+1. 整理普通客户开户过程中所涉及的表
+2. 学习上述表的主要字段含义，以及表字段常用的字典项
+
+=========8月28日=============
+1. 学习L1190530接口中客户 资金 开户的代码，并进行调试和数据库跟踪
+2. 整理客户 资金 开户过程中所涉及到的表
+3. 学习上述表中的主要字段含义，以及表字段常用的字典项
+
+=========8月29日=============
+1. 学习L1190530接口中客户 资金币种 开户的代码，并进行调试和数据库跟踪
+2. 整理客户 资金币种 开户过程中所涉及到的表
+3. 学习上述表中的主要字段含义，以及表字段常用的字典项
+
+=========8月30日=============
+1. 学习银证开户的代码，并进行调试和数据库跟踪
+2. 整理银证开户过程中所涉及到的表及主要字段
+
+
+
+
+

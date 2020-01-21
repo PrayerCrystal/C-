@@ -1,0 +1,12 @@
+192.168.30.237.1633	sa/sa
+192.168.30.237.1533	sa/sa(勿修改数据)
+192.168.30.114		sa/Sa147741	kbssfms/kbssfms
+linux			oracle/oracle123	root/root123
+征信：HuangYuanXin/Hyx147741
+SVN:shihr/rrhhs2@https://10.200.0.2/ZQ/FMS/8.Tags/FMS_v2.2.4.0
+
+
+
+
+
+
